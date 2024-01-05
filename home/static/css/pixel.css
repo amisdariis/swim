@@ -10381,7 +10381,8 @@ textarea.form-control-lg {
   .align-items-lg-end {
     align-items: flex-end !important; }
   .align-items-lg-center {
-    align-items: center !important; }
+    align-items: center !important;
+   }
   .align-items-lg-baseline {
     align-items: baseline !important; }
   .align-items-lg-stretch {
