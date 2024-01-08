@@ -2,16 +2,12 @@
   "name": "Python 3.8 with Pipenv",
   "dockerFile": "Dockerfile",
   "service": "app",
-  "workspaceFolder": "/workspace",
   "extensions": [
       "ms-python.python",
       "visualstudioexptteam.vscodeintellicode",
       "dbaeumer.vscode-eslint",
       "ms-azuretools.vscode-docker"
   ],
-  "settings": {
-      "python.pythonPath": "/workspace/.venv/bin/python"
-  },
   "forwardPorts": [8000],
   "runArgs": ["--service-ports"]
 }
