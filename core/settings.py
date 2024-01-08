@@ -14,7 +14,7 @@ import os, random, string
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()  # take environment variables from .env.
+load_dotenv(".env")  # take environment variables from .env.
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -54,7 +54,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -95,8 +94,9 @@ DB_PASS     = os.getenv('DB_PASS'     , None)
 DB_HOST     = os.getenv('DB_HOST'     , None)
 DB_PORT     = os.getenv('DB_PORT'     , None)
 DB_NAME     = os.getenv('DB_NAME'     , None)
+DB_PROD     = os.getenv('DB_PROD'     , None)
 
-if DB_ENGINE and DB_NAME and DB_USERNAME:
+if DB_ENGINE and DB_NAME and DB_USERNAME and DB_PROD :
     DATABASES = { 
       'default': {
         'ENGINE'  : 'django.db.backends.' + DB_ENGINE, 
@@ -107,6 +107,7 @@ if DB_ENGINE and DB_NAME and DB_USERNAME:
         'PORT'    : DB_PORT,
         }, 
     }
+    print('Using PostresQl db')
 else:
     DATABASES = {
         'default': {
@@ -114,6 +115,8 @@ else:
             'NAME': 'db.sqlite3',
         }
     }
+    print('Using sqlite3 db')
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
