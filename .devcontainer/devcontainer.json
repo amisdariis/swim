@@ -8,6 +8,5 @@
       "dbaeumer.vscode-eslint",
       "ms-azuretools.vscode-docker"
   ],
-  "forwardPorts": [8000],
-  "runArgs": ["--service-ports"]
+  "forwardPorts": [8000]
 }
