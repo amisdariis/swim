@@ -1,26 +1,17 @@
 {
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "app",
-    "waitFor": "onCreateCommand",
-    "updateContentCommand": "",
-    "postCreateCommand": "pip install --user -r requirements.txt && python manage.py collectstatic && python manage.py migrate",
-    "postAttachCommand": {
-      "server": "python manage.py runserver"
-    },
-    "containerEnv": {
-      "DATABASE_URL": "postgres://postgres:postgres@db/pillarpointstewards"
-    },
-    "customizations": {
-      "vscode": {
-        "extensions": [
-          "ms-python.python"
-        ]
-      }
-    },
-    "portsAttributes": {
-      "8000": {
-        "label": "Application"
-      }
-    },
-    "forwardPorts": [8000]
-  }
+  "name": "Python 3.8 with Pipenv",
+  "dockerFile": "Dockerfile",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "extensions": [
+      "ms-python.python",
+      "visualstudioexptteam.vscodeintellicode",
+      "dbaeumer.vscode-eslint",
+      "ms-azuretools.vscode-docker"
+  ],
+  "settings": {
+      "python.pythonPath": "/workspace/.venv/bin/python"
+  },
+  "forwardPorts": [8000],
+  "runArgs": ["--service-ports"]
+}
