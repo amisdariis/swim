@@ -1,6 +1,8 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # Pages
@@ -8,6 +10,7 @@ urlpatterns = [
     path('about-us/', views.abouts_us, name='about_us'),
     path('contact-us/', views.contact_us, name='contact_us'),
     path('blank/', views.blank_page, name='blank'),
+    path('profile/',views.profile_page, name='profile-page'),
 
 
     # Authentication
@@ -50,4 +53,4 @@ urlpatterns = [
     path('tooltips/', views.tooltips, name='tooltips'),
     path('typography/', views.typography, name='typography'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

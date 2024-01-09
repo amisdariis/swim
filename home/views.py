@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from theme_pixel.forms import RegistrationForm, UserLoginForm, UserPasswordResetForm, UserPasswordChangeForm, UserSetPasswordForm
 from django.contrib.auth import logout
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
+from .forms import UpdateUserForm, UpdateProfileForm
 
 # Create your views here.
 
@@ -23,8 +26,11 @@ def landing_freelancer(request):
 def blank_page(request):
   return render(request, 'pages/blank.html')
 
+def profile_page(request):
+  return render(request, 'pages/profile.html')
 
-# Authentication
+
+# Account management
 class UserLoginView(LoginView):
   template_name = 'accounts/sign-in.html'
   form_class = UserLoginForm
@@ -59,6 +65,23 @@ class UserPasswordResetConfirmView(PasswordResetConfirmView):
 class UserPasswordChangeView(PasswordChangeView):
   template_name = 'accounts/password_change.html'
   form_class = UserPasswordChangeForm
+
+
+def profile(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect(to='users-profile')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+        profile_form = UpdateProfileForm(instance=request.user.profile)
+
+    return render(request, 'users/profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
 
 # Components
