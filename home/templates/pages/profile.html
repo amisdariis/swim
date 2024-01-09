@@ -2,6 +2,23 @@
 {% load static %}
 
 {% block content %}
+
+    <!-- Hero -->
+    <section class="section-header overflow-hidden pt-7 pt-lg-6 pb-5 pb-lg-2 bg-primary text-white">
+        <div class="container ">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="lead fw-normal text-muted"> {{ user.profile }} profile</h1>
+                </div>
+            </div>
+        </div>
+        <figure class="position-absolute bottom-1 left-0 w-100 d-none d-md-block mb-n2"><svg class="fill-white"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 185.4">
+            <path d="M3000,0v185.4H0V0c496.4,115.6,996.4,173.4,1500,173.4S2503.6,115.6,3000,0z"></path>
+            </svg>
+        </figure>
+    </section>
+
     {% if user_form.errors %}
     <div class="alert alert-danger alert-dismissible" role="alert">
         <div id="form_errors">
@@ -15,85 +32,72 @@
     </div>
     {% endif %}
 
-    <main>
+    {% if profile_form.errors %}
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <div id="form_errors">
+            {% for key, value in profile_form.errors.items %}
+                <strong>{{ value }}</strong>
+            {% endfor %}
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
 
-        <!-- Hero -->
-        <section class="section-header overflow-hidden pt-7 pt-lg-6 pb-5 pb-lg-2 bg-primary text-white">
-            <div class="container ">
-              <div class="row">
-                <div class="col-12 text-center">
-                  <h1 class="lead fw-normal text-muted">Profile page</h1>
-                </div>
-              </div>
-            </div>
-            <figure class="position-absolute bottom-1 left-0 w-100 d-none d-md-block mb-n2"><svg class="fill-white"
-                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 185.4">
-                <path d="M3000,0v185.4H0V0c496.4,115.6,996.4,173.4,1500,173.4S2503.6,115.6,3000,0z"></path>
-              </svg>
-            </figure>
-        </section>
+    <main>
         
         <!-- Section -->
         <section class="section section-lg pt-6">
             <div class="container">
+                <form method="post" enctype="multipart/form-data">
                 <div class="row justify-content-center mb-5 mb-lg-6">
-                    <div class="col-8">
+
+                    <div class="col-9">
                         <!-- Contact Card -->
                         <div class="card border-0 p-2 p-md-3 p-lg-5">
-                            <div class="card-header bg-white border-0 text-center">
-                                <h2>Welcome {{ user_form.username }}</h2>
-                            </div>
                             <div class="card-body px-0 pt-0">
-                                <form method="post" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                                            <!-- Form -->
-                                    <div class="mb-4">
-                                        <div class="form-group">
-                                            <label for="name">Username:</label>
-                                            {{ user_form.username }}
-                                                {{ user_form.username }}
-                                            <label class="small mb-1">Email:</label>
-                                                {{ user_form.email }}
-                                        </div>
-                                        {{ profile_form.bio }}
-                                        {{ profile_form.avatar }}
-                                        <div class="input-group">
+                                {% csrf_token %}
+                                <!-- Form -->
+                                <div class="mb-4">
+                                    <div class="form-group">
+                                        <label for="name">Pseudo</label>
+                                        <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon3"><span class="fas fa-user-circle"></span></span>
-                                            <input type="text" class="form-control" placeholder="e.g. Bonnie Green" id="name" required>
-                                        </div>
-                                    </div>
-                                    <!-- End of Form -->
-                                    <!-- Form -->
-                                    <div class="mb-4">
-                                        <label for="email">Your Email</label>
-                                        <div class="input-group">
+                                            {{ user_form.username }}
+                                        </div>          
+                                        <label for="name">Email</label>    
+                                        <div class="input-group mb-3">
                                             <span class="input-group-text" id="basic-addon4"><span class="fas fa-envelope"></span></span>
-                                            <input type="email" class="form-control" placeholder="example@company.com" id="email" required>
+                                            {{ user_form.email }}
                                         </div>
                                     </div>
-                                    <!-- End of Form -->
-                                    <div class="mb-4">
-                                        <label for="message">Your Message</label>
-                                        <textarea placeholder="Your message" class="form-control" id="message" rows="4" required></textarea>
-                                    </div>
-                                    <!-- End of Form -->
-                                    <div class="d-grid">
-                                        <button type="submit" class="btn rounded btn-secondary">Send message</button>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
-                        <!-- End of Contact Card -->
                     </div>
-                    <div class="col-4">
+                    <!-- End of Contact Card -->
+
+                    <div class="col-3">
                         <div class="row my-3 p-3">
-                            <img class="rounded-circle account-img" src="{% static 'assets/img/boats/avatar.png' %}" style="cursor: pointer;"/>
+                            <img class="rounded-circle account-img" src="{{ user.profile.avatar.url }}" style="cursor: pointer;"/>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn rounded btn-secondary">Change avatar</button>
+                            <label for="message">Change avatar</label>
+                                {{ profile_form.avatar }}
                         </div>
                     </div>
                 </div>
+
+                <!-- End of Form -->
+                <div class="col-12 justify-content-center ">
+                    <div class="d-grid gap-2 d-md-block justify-content-center">
+                        <button type="submit" class="btn btn-dark btn-lg">Sauvegarder</button>
+                        <button type="reset" class="btn btn-dark btn-lg">Reset</button>
+                        <a href="{% url 'password_change' %}" class="btn btn-primary" role="button">Change password</a>
+                    </div>
+                </div>
+            </form>
             </div>
         </section>
         <!-- End of section -->

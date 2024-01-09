@@ -4,7 +4,7 @@ from theme_pixel.forms import RegistrationForm, UserLoginForm, UserPasswordReset
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from django.conf import settings
 from .forms import UpdateUserForm, UpdateProfileForm
 
 # Create your views here.
@@ -26,8 +26,8 @@ def landing_freelancer(request):
 def blank_page(request):
   return render(request, 'pages/blank.html')
 
-def profile_page(request):
-  return render(request, 'pages/profile.html')
+#def profile_page(request):
+#  return render(request, 'pages/profile.html')
 
 
 # Account management
@@ -37,7 +37,7 @@ class UserLoginView(LoginView):
 
 def logout_view(request):
   logout(request)
-  return redirect('/accounts/login')
+  return redirect(settings.LOGOUT_REDIRECT_URL)
 
 def register(request):
   if request.method == 'POST':
@@ -66,23 +66,25 @@ class UserPasswordChangeView(PasswordChangeView):
   template_name = 'accounts/password_change.html'
   form_class = UserPasswordChangeForm
 
-
-def profile(request):
+@login_required
+def profile_page(request):
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
-
+        print('test',user_form.is_valid(),profile_form.is_valid())
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
             messages.success(request, 'Your profile is updated successfully')
-            return redirect(to='users-profile')
+            print('sucess')
+
+            return redirect(to='profile')
+        messages.error(request, 'Failed to update your profile')
+
     else:
         user_form = UpdateUserForm(instance=request.user)
         profile_form = UpdateProfileForm(instance=request.user.profile)
-
-    return render(request, 'users/profile.html', {'user_form': user_form, 'profile_form': profile_form})
-
+    return render(request, 'pages/profile.html', {'user_form': user_form, 'profile_form': profile_form})
 
 # Components
 def accordion(request):
