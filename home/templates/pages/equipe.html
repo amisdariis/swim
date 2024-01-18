@@ -1,0 +1,51 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+
+<main>
+
+    <!-- Hero -->
+    <section class="section-header overflow-hidden pt-7 pt-lg-6 pb-5 pb-lg-2 bg-primary text-white">
+      <div class="container ">
+        <div class="row">
+          <div class="col-12 text-center">
+            <h1 class="fw-bolder display-2">MySwimTeam</h1>
+            <h2 class="lead fw-normal text-muted mb-4 px-lg-4">
+              Tel un selectioneur national, construit la meilleur équipe en un clin d'oeil!
+            </h2>
+          </div>
+        </div>
+      </div>
+      <figure class="position-absolute bottom-1 left-0 w-100 d-none d-md-block mb-n2"><svg class="fill-white"
+        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3000 185.4">
+          <path d="M3000,0v185.4H0V0c496.4,115.6,996.4,173.4,1500,173.4S2503.6,115.6,3000,0z"></path>
+        </svg></figure>
+    </section>
+  
+    <section class="section section-lg">
+      <div class="container">
+        
+        <div class="row justify-content-between align-items-center mb-5 mb-lg-7">
+          <div class="col-12 col-lg-5 mb-5 mb-lg-0 order-lg-2">
+            <h2 class="h1">MySwimTeam aide à optimiser les équipes de nageurs sans effort</h2>
+            <p class="mb-4">Je met Didier au 100 Br ou au 50 dos-a-deux-bras? Et si je mets Michel au 100m nage Indienne, je vais gagner 3 points...</p>
+            <p class="mb-4">Ne te prend pas la tête laisse MySwimTeam calculculer la meilleure équipe pendant que tu t'entraine au lancé de pullboy...</p>
+            <a href="https://themesberg.com/docs/pixel-bootstrap/components/accordions/" target="_blank"
+              class="btn btn-outline-primary"><span class="fas fa-book me-2"></span> Mon équipe</a>
+          </div>
+          <div class="col-12 col-lg-6 order-lg-1">
+            <img src="{% static 'assets/img/olympe.jpg' %}" alt="A nice swimming pool">
+          </div>
+        </div>
+  
+   
+      </div>
+        
+    </section>
+  
+  </main>
+
+    {% endblock content %}
+
+
+

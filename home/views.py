@@ -26,6 +26,9 @@ def landing_freelancer(request):
 def blank_page(request):
   return render(request, 'pages/blank.html')
 
+def equipe_page(request):
+  return render(request, 'pages/equipe.html')
+
 #def profile_page(request):
 #  return render(request, 'pages/profile.html')
 

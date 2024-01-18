@@ -7,10 +7,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     # Pages
     path('', views.index),
-    path('about-us/', views.abouts_us, name='about_us'),
-    path('contact-us/', views.contact_us, name='contact_us'),
-    path('blank/', views.blank_page, name='blank'),
+    #path('about-us/', views.abouts_us, name='about_us'),
+    #path('contact-us/', views.contact_us, name='contact_us'),
+    #path('blank/', views.blank_page, name='blank'),
     path('profile/',views.profile_page, name='profile'),
+    path('equipe/',views.equipe_page, name='equipe'),
 
 
     # Authentication

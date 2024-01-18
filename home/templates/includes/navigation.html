@@ -9,14 +9,14 @@
     {% endif %}  
       <div class="container position-relative">
           <a class="navbar-brand me-lg-5" href="/">
-            <img class="navbar-brand-dark" src="{% static 'assets/img/brand/dark.svg' %}" alt="Logo light">
+            <img class="navbar-brand-dark" src="{% static 'assets/img/favicon/favicon-32x32.png' %}" alt="Logo light">
           </a>
           <div class="navbar-collapse collapse me-auto" id="navbar_global">
               <div class="navbar-collapse-header">
                   <div class="row" id="nav-item">
                       <div class="col-6 collapse-brand">
                           <a href="/">
-                              <img src="{% static 'assets/img/brand/dark.svg' %}" alt="Boat logo">
+                              <img src="{% static 'assets/img/brand/dark.svg' %}" alt="Swim logo">
                           </a>
                       </div>
                       <div class="col-6 collapse-close">
@@ -27,53 +27,18 @@
               <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                   <li class="nav-item dropdown">
                       <a href="#" class="nav-link dropdown-toggle" id="frontPagesDropdown" aria-expanded="false" data-bs-toggle="dropdown">
-                          Mon bateau
+                          Outils du coach
                           <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
                       </a>
                       <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="frontPagesDropdown">
                         <div class="col-auto g-0">
                             <div class="col ps-0 py-3">
                                 <ul class="list-style-none">
-                                    <li><a class="dropdown-item" href="{% url 'accordion' %}">Calendrier</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'alerts' %}">Journal</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'badges' %}">Checklists</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'equipe' %}">Mon équipe</a></li>
                                 </ul>
                             </div>
                         </div>
                       </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="#" class="nav-link dropdown-toggle" id="componentsDropdown" aria-expanded="false" data-bs-toggle="dropdown">
-                          Profil
-                          <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="componentsDropdown">
-                          <div class="col-auto g-0">
-                              <div class="col ps-0 py-3">
-                                  <ul class="list-style-none">
-                                      <li><a class="dropdown-item" href="{% url 'profile' %}">Mon compte</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'alerts' %}">Alerts</a></li>
-                                      <li><a class="dropdown-item" href="{% url 'badges' %}">Badges</a></li>
-                                  </ul>
-                              </div>
-                          </div>
-                      </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="supportDropdown" aria-expanded="false">
-                          Annonces
-                          <span class="fas fa-angle-down nav-link-arrow ms-1"></span>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="supportDropdown">
-                        <div class="col-auto g-0">
-                            <div class="col ps-0 py-3">
-                                <ul class="list-style-none">
-                                    <li><a class="dropdown-item" href="{% url 'accordion' %}">Acheter</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'accordion' %}">Vendre</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                   </li>
               </ul>
           </div>
