@@ -24,18 +24,51 @@
   
     <section class="section section-lg">
       <div class="container">
-        
+
         <div class="row justify-content-between align-items-center mb-5 mb-lg-7">
-          <div class="col-12 col-lg-5 mb-5 mb-lg-0 order-lg-2">
-            <h2 class="h1">MySwimTeam aide à optimiser les équipes de nageurs sans effort</h2>
-            <p class="mb-4">Je met Didier au 100 Br ou au 50 dos-a-deux-bras? Et si je mets Michel au 100m nage Indienne, je vais gagner 3 points...</p>
-            <p class="mb-4">Ne te prend pas la tête laisse MySwimTeam calculculer la meilleure équipe pendant que tu t'entraine au lancé de pullboy...</p>
-            <a href="https://themesberg.com/docs/pixel-bootstrap/components/accordions/" target="_blank"
-              class="btn btn-outline-primary"><span class="fas fa-book me-2"></span> Mon équipe</a>
-          </div>
-          <div class="col-12 col-lg-6 order-lg-1">
-            <img src="{% static 'assets/img/olympe.jpg' %}" alt="A nice swimming pool">
-          </div>
+            <py-config>
+                packages = [ "pandas", "matplotlib" ]    
+            </py-config>
+
+            <label for="myfile">Select a CSV file to graph:</label>
+            <input type="file" id="myfile" name="myfile" accept=".csv"><br>
+         
+            <div id="lineplot"> </div>
+            <pre id="print_output"> </pre>
+            <py-script output="print_output">
+        import pandas as pd
+        import matplotlib.pyplot as plt
+        from io import StringIO
+        import asyncio
+        from js import document, FileReader
+        from pyodide.ffi.wrappers import add_event_listener
+         
+        # Process a new user selected CSV file      
+        async def process_file(event):      
+            fileList = event.target.files.to_py()
+            for f in fileList:
+                data = await f.text()
+                # the CSV file is read as large string 
+                # use StringIO to pass info into Panda dataframe
+                csvdata = StringIO(data)
+                df = pd.read_csv(csvdata, sep=";",decimal=",")
+                #print("DataFrame of:", f.name, "\n",df)
+         
+                fig, ax = plt.subplots(figsize=(16,4))
+                plt.plot(df['x'], df['y1'])
+                plt.plot(df['x'], df['y2'])
+                plt.title(f.name)
+                plt.ylabel(df.columns[1])
+                plt.xlabel(df.columns[0])
+                # Write Mathplot figure to div tag
+                pyscript.write('lineplot',fig)
+                  
+        # Set the listener to look for a file name change
+        e = document.getElementById("myfile")
+        add_event_listener(e, "change", process_file)   
+         
+        </py-script>
+        
         </div>
   
    
